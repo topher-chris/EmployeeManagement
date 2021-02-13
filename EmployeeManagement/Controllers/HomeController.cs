@@ -11,17 +11,33 @@ namespace EmployeeManagement.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IEmployeeRepository _employeeRepository;
+        public HomeController(IEmployeeRepository employeeRepository)
         {
-            _logger = logger;
+            _employeeRepository = employeeRepository;
+        }
+        public string Index()
+        {
+            return _employeeRepository.GetEmployee(1).Name;
         }
 
-        public IActionResult Index()
+        public ViewResult Details()
         {
-            return View();
+            Employee model = _employeeRepository.GetEmployee(1);
+            return View(model);
         }
+        //   private readonly ILogger<HomeController> _logger;
+
+
+        //    public HomeController(ILogger<HomeController> logger)
+        //  {
+        //    _logger = logger;
+        //  }
+
+        //  public IActionResult Index()
+        //  {
+        //     return View();
+        //  }
 
         public IActionResult Privacy()
         {
